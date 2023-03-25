@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="308dp"
+        android:layout_height="76dp"
+        android:fontFamily="@font/tuntun"
+        android:gravity="bottom"
+        android:text="본인의 자동차 번호를 입력해주세요."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button"
+        tools:ignore="RtlCompat" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="220dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="436dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.454" />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="75dp"
+        android:layout_height="52dp"
+        android:onClick="onClickAddButton"
+        android:text="추가"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.203"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.253" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="103dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="9dp"
+        android:onClick="backButtonOnclick"
+        android:text="뒤로가기"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="307dp"
+        android:layout_height="413dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText">
+
+<!--        <TableRow>-->
+<!--            <TextView-->
+<!--                android:text="A"-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--            <Button-->
+<!--                android:text="취소"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+
+<!--            <Button-->
+<!--                android:text="삭제"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--        </TableRow>-->
+
+<!--        <TableRow>-->
+<!--            <TextView-->
+<!--                android:text="B"-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--            <Button-->
+<!--                android:text="취소"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+
+<!--            <Button-->
+<!--                android:text="삭제"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--        </TableRow>-->
+
+<!--        <TableRow>-->
+<!--            <TextView-->
+<!--                android:text="B"-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--            <Button-->
+<!--                android:text="취소"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+
+<!--            <Button-->
+<!--                android:text="삭제"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--        </TableRow>-->
+
+<!--        <TableRow>-->
+<!--            <TextView-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:text="D" />-->
+<!--            <Button-->
+<!--                android:text="취소"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+
+<!--            <Button-->
+<!--                android:text="삭제"-->
+<!--                android:layout_width="65dp"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+<!--        </TableRow>-->
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
