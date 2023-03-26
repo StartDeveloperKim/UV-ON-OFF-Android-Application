@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hello.destroy.ForcedTerminationService;
 import com.example.hello.layout.SettingActivity;
+import com.example.hello.memory.SharedPreferencesMemory;
 import com.example.hello.mqtt.MqttService;
 import com.example.hello.mqtt.MqttUtil;
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private MqttUtil mqttUtil;
+    private SharedPreferencesMemory sharedPreferencesMemory;
 
 
     @Override
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferencesMemory = SharedPreferencesMemory.getInstance();
+        sharedPreferencesMemory.setSharedPreferencesMemory(this);
 
         mqttUtil = MqttUtil.getMqttUtilInstance();
     }

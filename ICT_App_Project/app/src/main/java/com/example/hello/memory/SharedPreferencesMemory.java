@@ -12,32 +12,38 @@ import java.util.Set;
 
 public class SharedPreferencesMemory {
 
-    private static final String SUBSCRIBES = "subscribes";
+    private static final SharedPreferencesMemory sharedPreferencesMemory = new SharedPreferencesMemory();
     private static final String TOPICS = "topics";
 
-    private final SharedPreferences sharedPreferences;
-    private final SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
-    public SharedPreferencesMemory(Context context) {
-//        this.sharedPreferences = context.getSharedPreferences(SUBSCRIBES, Activity.MODE_PRIVATE);
+    private SharedPreferencesMemory() {
+    }
+
+    public void setSharedPreferencesMemory(Context context) {
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         this.editor = sharedPreferences.edit();
     }
 
-    public Set<String> getTopicsAtSharedPreference(Context context) {
+    public static SharedPreferencesMemory getInstance() {
+        return sharedPreferencesMemory;
+    }
+
+    public Set<String> getTopicsAtSharedPreference() {
         return sharedPreferences.getStringSet(TOPICS, null);
     }
 
-    public SharedPreferences.Editor getEditor(Context context) {
+    public SharedPreferences.Editor getEditor() {
         return editor;
     }
 
-    public SharedPreferences getSharedPreferences(Context context) {
+    public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
     }
 
-    public void addTopic(String topic, Context context) {
-        Set<String> savedTopics = getTopicsAtSharedPreference(context);
+    public void addTopic(String topic) {
+        Set<String> savedTopics = getTopicsAtSharedPreference();
 
         if (savedTopics == null) {
             savedTopics = new HashSet<>();

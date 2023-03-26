@@ -41,11 +41,6 @@ public class MqttService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("MQTT 백그라운드서비스", "연결을 시도합니다.");
 
-//        mqttNotification = new MqttNotification();
-//        client = new MqttAndroidClient(this.getApplicationContext(), "tcp://10.0.2.2:1883", "myungjin");
-//
-//        connect();
-
         mqttUtil = MqttUtil.getMqttUtilInstance();
         mqttUtil.getClient(this);
 

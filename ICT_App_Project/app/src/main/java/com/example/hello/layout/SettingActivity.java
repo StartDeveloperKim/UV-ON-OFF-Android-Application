@@ -44,7 +44,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         mqttUtil = MqttUtil.getMqttUtilInstance();
-        sharedPreferencesMemory = new SharedPreferencesMemory(getApplicationContext());
+        sharedPreferencesMemory = SharedPreferencesMemory.getInstance();
         buttonTopicRepository = new HashMap<>();
 
         makeTableLayout();
@@ -60,7 +60,7 @@ public class SettingActivity extends AppCompatActivity {
         String topic = getTopic();
 
         if (checkDuplicateTopic(topic)) {
-            sharedPreferencesMemory.addTopic(topic, this);
+            sharedPreferencesMemory.addTopic(topic);
             addTableRow(findViewById(R.id.tableLayout), topic);
         } else {
             Toast.makeText(this, "중복되었습니다.", Toast.LENGTH_SHORT).show();
@@ -73,7 +73,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private boolean checkDuplicateTopic(String topic) {
-        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference(this);
+        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference();
         if (savedTopics == null) {
             return true;
         }
@@ -97,8 +97,8 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void removeTopic(int buttonId) {
-        SharedPreferences.Editor editor = sharedPreferencesMemory.getEditor(this);
-        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference(this);
+        SharedPreferences.Editor editor = sharedPreferencesMemory.getEditor();
+        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference();
 
         String topic = buttonTopicRepository.get(buttonId);
         if (savedTopics.contains(topic)) {
@@ -113,7 +113,7 @@ public class SettingActivity extends AppCompatActivity {
     private void makeTableLayout() {
         TableLayout tableLayout = findViewById(R.id.tableLayout);
 
-        Set<String> topics = sharedPreferencesMemory.getTopicsAtSharedPreference(this);
+        Set<String> topics = sharedPreferencesMemory.getTopicsAtSharedPreference();
         if (topics == null) {
             return;
         }

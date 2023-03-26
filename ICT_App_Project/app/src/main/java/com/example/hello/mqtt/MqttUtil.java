@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.hello.MainActivity;
 import com.example.hello.R;
+import com.example.hello.memory.SharedPreferencesMemory;
 import com.example.hello.notification.MqttNotification;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -36,6 +38,7 @@ import java.util.Set;
 public class MqttUtil {
 
     private static final MqttUtil mqttUtil = new MqttUtil();
+    private final SharedPreferencesMemory sharedPreferencesMemory;
     //    private static final String BROKER_URL = "tcp://10.0.2.2:1883";
     private static final String BROKER_URL = "tcp://broker.hivemq.com:1883";
     private static final String PUBLISH_TOPIC = "topic";
@@ -47,6 +50,7 @@ public class MqttUtil {
     private MqttNotification mqttNotification = new MqttNotification();
 
     private MqttUtil() {
+        sharedPreferencesMemory = SharedPreferencesMemory.getInstance();
     }
 
     public static MqttUtil getMqttUtilInstance() {
@@ -134,9 +138,7 @@ public class MqttUtil {
 
     /*앱을 다시 켰을 때 재구독*/
     public void reSubscribe(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MQTT.SUBSCRIBES.value(), Context.MODE_PRIVATE);
-
-        Set<String> savedTopics = sharedPreferences.getStringSet(MQTT.TOPICS.value(), null);
+        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference();
         if (savedTopics != null) {
             for (String topic : savedTopics) {
                 setSubscribe(topic, context);
