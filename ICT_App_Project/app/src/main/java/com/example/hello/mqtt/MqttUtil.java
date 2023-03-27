@@ -138,11 +138,17 @@ public class MqttUtil {
 
     /*앱을 다시 켰을 때 재구독*/
     public void reSubscribe(Context context) {
-        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference();
-        if (savedTopics != null) {
-            for (String topic : savedTopics) {
-                setSubscribe(topic, context);
-            }
+        /*아래 코드는 현재 있는 모든 토픽을 다시 구독하는 코드*/
+//        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference();
+//        if (savedTopics != null) {
+//            for (String topic : savedTopics) {
+//                setSubscribe(topic, context);
+//            }
+//        }
+        /*아래 코드는 현재 구독했는 토픽 하나만 다시 구독하는 코드*/
+        String nowTopic = sharedPreferencesMemory.getNowTopic();
+        if (nowTopic != null) {
+            setSubscribe(nowTopic, context);
         }
     }
 

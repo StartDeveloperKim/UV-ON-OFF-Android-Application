@@ -13,7 +13,9 @@ import java.util.Set;
 public class SharedPreferencesMemory {
 
     private static final SharedPreferencesMemory sharedPreferencesMemory = new SharedPreferencesMemory();
+
     private static final String TOPICS = "topics";
+    private static final String NOW_TOPIC = "nowTopic";
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -34,6 +36,15 @@ public class SharedPreferencesMemory {
         return sharedPreferences.getStringSet(TOPICS, null);
     }
 
+    public String getNowTopic() {
+        return sharedPreferences.getString(NOW_TOPIC, null);
+    }
+
+    public void setNowTopic(String nowSubscribe) {
+        editor.putString(NOW_TOPIC, nowSubscribe);
+        editor.apply();
+    }
+
     public SharedPreferences.Editor getEditor() {
         return editor;
     }
@@ -51,5 +62,24 @@ public class SharedPreferencesMemory {
         savedTopics.add(topic);
         editor.putStringSet(TOPICS, savedTopics);
         editor.apply();
+    }
+
+    public void removeTopic(String topic) {
+        Set<String> savedTopics = getTopicsAtSharedPreference();
+        SharedPreferences.Editor editor = getEditor();
+
+        if (savedTopics.contains(topic)) {
+            savedTopics.remove(topic);
+            editor.putStringSet(TOPICS, savedTopics);
+            editor.apply();
+        }
+    }
+
+    public void checkNowSubscribe(String topic) {
+        String nowTopic = getNowTopic();
+        if (topic.equals(nowTopic)) {
+            editor.putString(NOW_TOPIC, null);
+            editor.apply();
+        }
     }
 }

@@ -47,64 +47,6 @@ public class MqttService extends Service {
         return START_REDELIVER_INTENT;
     }
 
-    private void connect() {
-        try{
-            IMqttToken token = client.connect();
-            token.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.d("MQTT Background", "연결 성공");
-                    reSubscribe();
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.e("MQTT Background", "연결 실패");
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void reSubscribe() {
-        SharedPreferences sharedPreferences = getSharedPreferences(MQTT.SUBSCRIBES.value(), Activity.MODE_PRIVATE);
-
-        Set<String> savedTopics = sharedPreferences.getStringSet(MQTT.TOPICS.value(), null);
-        if (savedTopics != null) {
-            for (String topic : savedTopics) {
-                subscribe(topic, this);
-            }
-        }
-    }
-
-    private void subscribe(String topic, Context context) {
-        try {
-            client.subscribe(topic, 1);
-            client.setCallback(new MqttCallback() {
-                @Override
-                public void connectionLost(Throwable cause) {
-
-                }
-
-                @Override
-                public void messageArrived(String topic, MqttMessage message) throws Exception {
-                    String arrivedMessage = new String(message.toString());
-                    mqttNotification.createNotification(context, arrivedMessage, topic);
-                }
-
-                @Override
-                public void deliveryComplete(IMqttDeliveryToken token) {
-
-                }
-            });
-        } catch (MqttSecurityException e) {
-            e.printStackTrace();
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onDestroy() {
 

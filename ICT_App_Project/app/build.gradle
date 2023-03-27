@@ -41,6 +41,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation group: 'androidx.legacy', name: 'legacy-support-v4', version: '1.0.0'
     implementation "androidx.core:core:1.6.0"
+    implementation 'com.google.android.material:material:1.4.0'
 
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'

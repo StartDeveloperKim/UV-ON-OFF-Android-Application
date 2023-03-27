@@ -60,6 +60,9 @@ public class SettingActivity extends AppCompatActivity {
         String topic = getTopic();
 
         if (checkDuplicateTopic(topic)) {
+            EditText editText = findViewById(R.id.editText);
+            editText.setText("");
+
             sharedPreferencesMemory.addTopic(topic);
             addTableRow(findViewById(R.id.tableLayout), topic);
         } else {
@@ -77,9 +80,6 @@ public class SettingActivity extends AppCompatActivity {
         if (savedTopics == null) {
             return true;
         }
-        for (String t : savedTopics) {
-            System.out.println("t = " + t);
-        }
 
         return savedTopics.contains(topic) == false;
     }
@@ -87,6 +87,7 @@ public class SettingActivity extends AppCompatActivity {
     private void subscribeTopic(int buttonId) {
         String topic = buttonTopicRepository.get(buttonId);
         if (mqttUtil.setSubscribe(topic, this)) {
+            sharedPreferencesMemory.setNowTopic(topic);
             Toast.makeText(this, topic + "구독되었습니다.", Toast.LENGTH_SHORT);
         }
     }
@@ -97,17 +98,20 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void removeTopic(int buttonId) {
-        SharedPreferences.Editor editor = sharedPreferencesMemory.getEditor();
-        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference();
-
         String topic = buttonTopicRepository.get(buttonId);
-        if (savedTopics.contains(topic)) {
-            if (mqttUtil.unSubscribe(topic, this)) {
-                savedTopics.remove(topic);
-                editor.putStringSet(MQTT.TOPICS.value(), savedTopics);
-            }
+        buttonTopicRepository.remove(buttonId);
+        if (mqttUtil.unSubscribe(topic, this)) {
+            sharedPreferencesMemory.removeTopic(topic);
+            sharedPreferencesMemory.checkNowSubscribe(topic);
         }
-        editor.apply();
+
+        removeTableRow();
+        makeTableLayout();
+    }
+
+    private void removeTableRow() {
+        TableLayout tableLayout = findViewById(R.id.tableLayout);
+        tableLayout.removeAllViews();
     }
 
     private void makeTableLayout() {
