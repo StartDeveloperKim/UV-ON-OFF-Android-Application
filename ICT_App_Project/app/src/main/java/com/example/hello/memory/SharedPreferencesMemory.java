@@ -1,11 +1,8 @@
 package com.example.hello.memory;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import com.example.hello.mqtt.MQTT;
 
 import java.util.HashSet;
 import java.util.Set;

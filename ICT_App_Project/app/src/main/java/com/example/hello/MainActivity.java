@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void intentSettingLayout(View view) {
         Intent intent = new Intent(this, SettingActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

@@ -41,7 +41,7 @@ public class MqttUtil {
     private final SharedPreferencesMemory sharedPreferencesMemory;
     //    private static final String BROKER_URL = "tcp://10.0.2.2:1883";
     private static final String BROKER_URL = "tcp://broker.hivemq.com:1883";
-    private static final String PUBLISH_TOPIC = "topic";
+    private static final String PUBLISH_TOPIC = "topic"; // 구독 버튼 누를 때 마다 해당 topic이 변화되도록 한다.
 
     private static boolean published;
     private static MqttAndroidClient client;
@@ -70,8 +70,6 @@ public class MqttUtil {
     }
 
     public boolean checkConnect() {
-        System.out.println("client null check : " + client != null);
-        System.out.println("client connect check :  " + client.isConnected());
         return client != null && client.isConnected();
     }
 
@@ -117,8 +115,11 @@ public class MqttUtil {
                     Log.d("valueOf", String.valueOf(message.getPayload()));
                     Log.d("text", arrivedMessage);
 
-                    mqttNotification.createNotification(context, arrivedMessage, topic);
+                    System.out.println(message.getId());
 
+                    if (arrivedMessage.equals("3:UV_ON") || arrivedMessage.equals("3:UV_OFF")) {
+                        mqttNotification.createNotification(context, arrivedMessage, topic);
+                    }
                 }
 
                 @Override
@@ -156,12 +157,10 @@ public class MqttUtil {
     public boolean unSubscribe(final String topic, final Context context) {
         try {
             client.unsubscribe(topic);
-            Toast.makeText(context, "구독이 취소되었습니다.",  Toast.LENGTH_SHORT).show();
 
             return true;
         } catch (MqttException e) {
             Log.e(TAG, "Error when unSubscribe : " + e);
-            Toast.makeText(context, "구독취소에 실패했습니다.",  Toast.LENGTH_SHORT).show();
             e.printStackTrace();
 
             return false;

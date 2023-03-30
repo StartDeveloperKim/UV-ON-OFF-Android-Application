@@ -23,7 +23,7 @@ public class MqttNotification {
                 .setContentTitle("자동차 소독 알림 띵동 : " + topic)
                 .setAutoCancel(true);
 
-        if (message.equals("ON")) {
+        if (message.equals("3:UV_ON")) {
             builder.setContentText(ON_MESSAGE).setColor(Color.GREEN);
         }else{
             builder.setContentText(OFF_MESSAGE).setColor(Color.RED);

@@ -1,16 +1,10 @@
 package com.example.hello.layout;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,11 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.hello.MainActivity;
 import com.example.hello.R;
 import com.example.hello.memory.SharedPreferencesMemory;
-import com.example.hello.mqtt.MQTT;
 import com.example.hello.mqtt.MqttUtil;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -103,6 +95,9 @@ public class SettingActivity extends AppCompatActivity {
         if (mqttUtil.unSubscribe(topic, this)) {
             sharedPreferencesMemory.removeTopic(topic);
             sharedPreferencesMemory.checkNowSubscribe(topic);
+            Toast.makeText(this, "구독이 삭제되었습니다.",  Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "구독삭제에 실패했습니다.",  Toast.LENGTH_SHORT).show();
         }
 
         removeTableRow();
