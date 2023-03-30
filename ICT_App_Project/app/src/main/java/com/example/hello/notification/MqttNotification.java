@@ -16,6 +16,9 @@ public class MqttNotification {
     private static final String ON_MESSAGE = "소독이 실행되었습니다.";
     private static final String OFF_MESSAGE = "소독이 꺼졌습니다.";
 
+    private static final String AUTO_ON_MESSAGE = "소독이 자동 실행되었습니다.";
+    private static final String AUTO_OFF_MESSAGE = "소독이 완료되었습니다.";
+
     public void createNotification(Context context, String message, String topic) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default");
 
@@ -25,9 +28,15 @@ public class MqttNotification {
 
         if (message.equals("3:UV_ON")) {
             builder.setContentText(ON_MESSAGE).setColor(Color.GREEN);
-        }else{
+        }else if (message.equals("3:UV_OFF")){
             builder.setContentText(OFF_MESSAGE).setColor(Color.RED);
+        } else if (message.equals("3:AUTO_ON")) {
+            builder.setContentText(AUTO_ON_MESSAGE).setColor(Color.GREEN);
+        } else if (message.equals("3:AUTO_OFF")) {
+            builder.setContentText(AUTO_OFF_MESSAGE).setColor(Color.RED);
         }
+
+
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

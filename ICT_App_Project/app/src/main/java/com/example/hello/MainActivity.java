@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hello.destroy.ForcedTerminationService;
+import com.example.hello.layout.MainButton;
 import com.example.hello.layout.SettingActivity;
 import com.example.hello.memory.SharedPreferencesMemory;
 import com.example.hello.mqtt.MqttService;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         mqttUtil = MqttUtil.getMqttUtilInstance();
 
+        MainButton.makeInstance(findViewById(R.id.toggleButton));
+
         makeSubscribeList();
     }
 
@@ -53,45 +56,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void uvButtonClick(View view) throws MqttException {
-        Button uvBtn = findViewById(R.id.UV_button);
-        CompoundButton changeSwitch = findViewById(R.id.on_off_switch);
+        CompoundButton toggleButton = findViewById(R.id.toggleButton);
 
         // uvBtn의 텍스트 값이 기본값이 있으면 안된다. 현재 내 자동차 상태를 보고 text를 결정해야한다.
 
-//        if (uvBtn.getText().equals(OFF)) {
-//            Toast.makeText(this, "UV가 켜졌습니다.", Toast.LENGTH_SHORT).show();
-//            changeButtonLayout(Color.parseColor("#0101DF"), ON, uvBtn);
-//            mqttUtil.publishMessage("UV ON");
-//
-//        } else {
-//            Toast.makeText(this, "UV가 꺼졌습니다.", Toast.LENGTH_SHORT).show();
-//            changeButtonLayout(Color.parseColor("#FF0000"), OFF, uvBtn);
-//            mqttUtil.publishMessage("UV OFF");
-//        }
-
-        if (changeSwitch.isChecked()) {
-            Toast.makeText(this, "UV가 켜졌습니다.", Toast.LENGTH_SHORT).show();
+        if (toggleButton.isChecked()) {
+//            toggleButton.setText("UV 작동 중...");
             mqttUtil.publishMessage("UV ON");
-        } else {
-            Toast.makeText(this, "UV가 꺼졌습니다.", Toast.LENGTH_SHORT).show();
+        }else {
+//            toggleButton.setText("UV 작동 안함...");
             mqttUtil.publishMessage("UV OFF");
         }
-    }
 
-    private void changeButtonLayout(int color, String text, Button button) {
-        button.setBackgroundColor(color);
-        button.setText(text);
     }
 
     private void makeSubscribeList() {
-        CompoundButton changeSwitch = findViewById(R.id.on_off_switch);
+        TextView textView = findViewById(R.id.nowTopic);
         String nowTopic = sharedPreferencesMemory.getNowTopic();
 
         if (nowTopic != null) {
-            changeSwitch.setText(nowTopic);
+            textView.setText("현재 자동차 : " + nowTopic);
         }
 
-//        changeSwitch.setChecked(true);
         /*
         * 앱이 켜질 때 현재 구독 중인 자동차에게 check 메시지를 보내고
         * 해당 자동차는 check 메시지를 받으면 현재 상태(ON/OFF)를 보낸다.

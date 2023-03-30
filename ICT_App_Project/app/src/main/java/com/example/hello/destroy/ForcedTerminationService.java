@@ -8,7 +8,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 import com.example.hello.mqtt.MqttService;
-import com.example.hello.mqtt.MqttUtil;
 
 public class ForcedTerminationService extends Service {
 

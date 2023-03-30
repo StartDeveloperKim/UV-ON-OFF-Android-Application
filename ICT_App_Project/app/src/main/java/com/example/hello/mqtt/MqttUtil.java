@@ -20,6 +20,8 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.hello.MainActivity;
 import com.example.hello.R;
+import com.example.hello.layout.ButtonContent;
+import com.example.hello.layout.MainButton;
 import com.example.hello.memory.SharedPreferencesMemory;
 import com.example.hello.notification.MqttNotification;
 
@@ -119,6 +121,16 @@ public class MqttUtil {
 
                     if (arrivedMessage.equals("3:UV_ON") || arrivedMessage.equals("3:UV_OFF")) {
                         mqttNotification.createNotification(context, arrivedMessage, topic);
+                    }
+
+                    if (arrivedMessage.equals("3:AUTO_ON") || arrivedMessage.equals("3:AUTO_OFF")) {
+                        mqttNotification.createNotification(context, arrivedMessage, topic);
+                    }
+
+                    if (arrivedMessage.equals("3:UV_ON") || arrivedMessage.equals("3:AUTO_ON")) {
+                        MainButton.changeButtonState(ButtonContent.ON);
+                    } else if (arrivedMessage.equals("3:UV_OFF") || arrivedMessage.equals("3:AUTO_OFF")) {
+                        MainButton.changeButtonState(ButtonContent.OFF);
                     }
                 }
 
