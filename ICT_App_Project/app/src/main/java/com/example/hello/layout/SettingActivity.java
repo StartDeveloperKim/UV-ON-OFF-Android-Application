@@ -112,6 +112,7 @@ public class SettingActivity extends AppCompatActivity {
     private void makeTableLayout() {
         TableLayout tableLayout = findViewById(R.id.tableLayout);
 
+
         Set<String> topics = sharedPreferencesMemory.getTopicsAtSharedPreference();
         if (topics == null) {
             return;
@@ -171,6 +172,15 @@ public class SettingActivity extends AppCompatActivity {
                 choiceOnclickMethod(buttonContent, buttonId);
             }
         });
+
+        TableRow.LayoutParams params = new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT, // 너비
+                TableRow.LayoutParams.WRAP_CONTENT // 높이
+        );
+        params.width = 250; // 너비 설정
+        params.height = 200; // 높이 설정
+        button.setLayoutParams(params);
+
         return button;
     }
 

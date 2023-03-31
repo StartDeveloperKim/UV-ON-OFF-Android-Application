@@ -1,25 +1,9 @@
 package com.example.hello.mqtt;
 
-import android.app.Activity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-
-import com.example.hello.MainActivity;
-import com.example.hello.R;
 import com.example.hello.layout.ButtonContent;
 import com.example.hello.layout.MainButton;
 import com.example.hello.memory.SharedPreferencesMemory;
@@ -35,15 +19,12 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-import java.util.Set;
-
 public class MqttUtil {
 
     private static final MqttUtil mqttUtil = new MqttUtil();
     private final SharedPreferencesMemory sharedPreferencesMemory;
-    //    private static final String BROKER_URL = "tcp://10.0.2.2:1883";
-    private static final String BROKER_URL = "tcp://broker.hivemq.com:1883";
-    private static final String PUBLISH_TOPIC = "topic"; // 구독 버튼 누를 때 마다 해당 topic이 변화되도록 한다.
+    private static final String BROKER_URL = "tcp://broker.hivemq.com:1883"; // BROKER 서버 URL
+    private static final String PUBLISH_TOPIC = "topic"; // 발행 TOPIC
 
     private static boolean published;
     private static MqttAndroidClient client;
@@ -59,22 +40,15 @@ public class MqttUtil {
         return mqttUtil;
     }
 
-
     public void getClient(Context context) {
         if (client == null) {
-//            String clientId = MqttClient.generateClientId();
-            String clientId = "taewoo";
+            String clientId = MqttClient.generateClientId();
             client = new MqttAndroidClient(context, BROKER_URL, clientId);
         }
         if (!client.isConnected()) {
             connect(context);
         }
     }
-
-    public boolean checkConnect() {
-        return client != null && client.isConnected();
-    }
-
 
     public void connect(Context context) {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
@@ -91,7 +65,6 @@ public class MqttUtil {
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    System.out.println("연결 실패");
                     Log.d(TAG, "onFailure. Exception when Connecting" + exception);
                 }
             });
@@ -114,22 +87,16 @@ public class MqttUtil {
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     String arrivedMessage = new String(message.toString());
-                    Log.d("valueOf", String.valueOf(message.getPayload()));
                     Log.d("text", arrivedMessage);
 
-                    System.out.println(message.getId());
 
-                    if (arrivedMessage.equals("3:UV_ON") || arrivedMessage.equals("3:UV_OFF")) {
+                    if (checkOnMessage(arrivedMessage) || checkOffMessage(arrivedMessage)) {
                         mqttNotification.createNotification(context, arrivedMessage, topic);
                     }
 
-                    if (arrivedMessage.equals("3:AUTO_ON") || arrivedMessage.equals("3:AUTO_OFF")) {
-                        mqttNotification.createNotification(context, arrivedMessage, topic);
-                    }
-
-                    if (arrivedMessage.equals("3:UV_ON") || arrivedMessage.equals("3:AUTO_ON")) {
+                    if (checkOnMessage(arrivedMessage)) {
                         MainButton.changeButtonState(ButtonContent.ON);
-                    } else if (arrivedMessage.equals("3:UV_OFF") || arrivedMessage.equals("3:AUTO_OFF")) {
+                    } else if (checkOffMessage(arrivedMessage)) {
                         MainButton.changeButtonState(ButtonContent.OFF);
                     }
                 }
@@ -149,16 +116,15 @@ public class MqttUtil {
         }
     }
 
-    /*앱을 다시 켰을 때 재구독*/
+    private boolean checkOnMessage(String message) {
+        return message.equals("3:AUTO_ON") || message.equals("3:UV_ON");
+    }
+
+    private boolean checkOffMessage(String message) {
+        return message.equals("3:AUTO_OFF") || message.equals("3:UV_OFF");
+    }
+
     public void reSubscribe(Context context) {
-        /*아래 코드는 현재 있는 모든 토픽을 다시 구독하는 코드*/
-//        Set<String> savedTopics = sharedPreferencesMemory.getTopicsAtSharedPreference();
-//        if (savedTopics != null) {
-//            for (String topic : savedTopics) {
-//                setSubscribe(topic, context);
-//            }
-//        }
-        /*아래 코드는 현재 구독했는 토픽 하나만 다시 구독하는 코드*/
         String nowTopic = sharedPreferencesMemory.getNowTopic();
         if (nowTopic != null) {
             setSubscribe(nowTopic, context);
@@ -169,12 +135,10 @@ public class MqttUtil {
     public boolean unSubscribe(final String topic, final Context context) {
         try {
             client.unsubscribe(topic);
-
             return true;
         } catch (MqttException e) {
             Log.e(TAG, "Error when unSubscribe : " + e);
             e.printStackTrace();
-
             return false;
         }
     }
@@ -214,6 +178,4 @@ public class MqttUtil {
             }
         }
     }
-
-
 }

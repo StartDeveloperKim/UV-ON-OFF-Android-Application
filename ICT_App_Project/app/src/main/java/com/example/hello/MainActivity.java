@@ -1,23 +1,16 @@
 package com.example.hello;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.hello.destroy.ForcedTerminationService;
 import com.example.hello.layout.MainButton;
 import com.example.hello.layout.SettingActivity;
 import com.example.hello.memory.SharedPreferencesMemory;
-import com.example.hello.mqtt.MqttService;
 import com.example.hello.mqtt.MqttUtil;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -61,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         // uvBtn의 텍스트 값이 기본값이 있으면 안된다. 현재 내 자동차 상태를 보고 text를 결정해야한다.
 
         if (toggleButton.isChecked()) {
-//            toggleButton.setText("UV 작동 중...");
+            toggleButton.setBackgroundResource(R.drawable.shape_for_circle_button);
             mqttUtil.publishMessage("UV ON");
         }else {
-//            toggleButton.setText("UV 작동 안함...");
+            toggleButton.setBackgroundResource(R.drawable.shape_for_circle_button_red);
             mqttUtil.publishMessage("UV OFF");
         }
 

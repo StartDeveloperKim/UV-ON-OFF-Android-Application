@@ -27,9 +27,6 @@ import java.util.Set;
 
 public class MqttService extends Service {
 
-    private MqttAndroidClient client;
-    private MqttNotification mqttNotification;
-
     private MqttUtil mqttUtil;
 
     @Override

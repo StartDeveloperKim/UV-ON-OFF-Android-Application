@@ -30,7 +30,7 @@
         app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintVertical_bias="0.233" />
 
     <Button
         android:id="@+id/add_button"
@@ -47,89 +47,27 @@
 
     <Button
         android:id="@+id/back_button"
-        android:layout_width="103dp"
+        android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="9dp"
         android:onClick="backButtonOnclick"
-        android:text="뒤로가기"
+        android:background="@drawable/next"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="307dp"
+        android:layout_width="308dp"
         android:layout_height="413dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText">
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.556">
 
-<!--        <TableRow>-->
-<!--            <TextView-->
-<!--                android:text="A"-->
-<!--                android:layout_width="145dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--            <Button-->
-<!--                android:text="취소"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-
-<!--            <Button-->
-<!--                android:text="삭제"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--        </TableRow>-->
-
-<!--        <TableRow>-->
-<!--            <TextView-->
-<!--                android:text="B"-->
-<!--                android:layout_width="145dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--            <Button-->
-<!--                android:text="취소"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-
-<!--            <Button-->
-<!--                android:text="삭제"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--        </TableRow>-->
-
-<!--        <TableRow>-->
-<!--            <TextView-->
-<!--                android:text="B"-->
-<!--                android:layout_width="145dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--            <Button-->
-<!--                android:text="취소"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-
-<!--            <Button-->
-<!--                android:text="삭제"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--        </TableRow>-->
-
-<!--        <TableRow>-->
-<!--            <TextView-->
-<!--                android:layout_width="145dp"-->
-<!--                android:layout_marginLeft="10dp"-->
-<!--                android:text="D" />-->
-<!--            <Button-->
-<!--                android:text="취소"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-
-<!--            <Button-->
-<!--                android:text="삭제"-->
-<!--                android:layout_width="65dp"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-<!--        </TableRow>-->
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,16 +17,19 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/toggleButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.159"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="378dp"
+        android:layout_height="69dp"
         android:layout_marginTop="68dp"
-        android:text="UV sterilization"
+        android:background="@drawable/uv_topic"
+        android:text=""
         android:textColor="#03A9F4"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -51,10 +54,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/setting_button"
-        android:layout_width="91dp"
-        android:layout_height="71dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:onClick="intentSettingLayout"
-        android:text="설정"
+        android:text=""
+        android:background="@drawable/settings"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,33 +67,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.026" />
 
-<!--    <com.google.android.material.switchmaterial.SwitchMaterial-->
-<!--        android:id="@+id/on_off_switch"-->
-<!--        android:layout_width="156dp"-->
-<!--        android:layout_height="59dp"-->
-<!--        android:layout_marginTop="96dp"-->
-<!--        android:gravity="center"-->
-<!--        android:onClick="uvButtonClick"-->
-<!--        android:text="현재구독없음"-->
-<!--        android:textSize="15dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView"-->
-<!--        app:layout_constraintVertical_bias="0.473" />-->
+    <!--    <com.google.android.material.switchmaterial.SwitchMaterial-->
+    <!--        android:id="@+id/on_off_switch"-->
+    <!--        android:layout_width="156dp"-->
+    <!--        android:layout_height="59dp"-->
+    <!--        android:layout_marginTop="96dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:onClick="uvButtonClick"-->
+    <!--        android:text="현재구독없음"-->
+    <!--        android:textSize="15dp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.498"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView"-->
+    <!--        app:layout_constraintVertical_bias="0.473" />-->
 
     <ToggleButton
         android:id="@+id/toggleButton"
         android:layout_width="265dp"
-        android:layout_height="222dp"
+        android:layout_height="265dp"
+        android:background="@drawable/shape_for_circle_button_red"
         android:onClick="uvButtonClick"
         android:text="ToggleButton"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.574" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
