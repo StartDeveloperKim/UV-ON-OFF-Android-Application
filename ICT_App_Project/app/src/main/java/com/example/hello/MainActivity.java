@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final String OFF = "UV OFF";
     private final String ON = "UV ON";
+
+    private static final int TIME_INTERVAL = 2000;
+    private long backPressedTime;
 
 
     private MqttUtil mqttUtil;
@@ -40,6 +44,21 @@ public class MainActivity extends AppCompatActivity {
         MainButton.makeInstance(findViewById(R.id.toggleButton));
 
         makeSubscribeList();
+    }
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+
+        if (backPressedTime + TIME_INTERVAL > currentTime) {
+            super.onBackPressed();
+            finish();
+        }else{
+            Toast.makeText(this, "뒤로 버튼을 두 번 눌러주세요", Toast.LENGTH_SHORT).show();
+        }
+
+        backPressedTime = currentTime;
+
     }
 
     public void intentSettingLayout(View view) {
